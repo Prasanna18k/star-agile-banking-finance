@@ -1,10 +1,12 @@
 node{
-    stage('git checjout')
+    stage('code_checkout')
     {
         git branch: 'master', url: 'https://github.com/Arshiyaz/banking.git'
     }
-
-    stage('build'){
+    stage('code_compile'){
+    sh 'mvn compile'
+    }
+    stage('code_build'){
     
     sh 'mvn clean package'
     }
@@ -13,7 +15,7 @@ node{
     sh 'sudo docker build -t arshiya13/banking .'
    
     }
-    stage('docker image push to registry')
+    stage('docker image push')
     {
     
     withCredentials([string(credentialsId: 'dockerid', variable: 'dockervar')]) {
@@ -22,7 +24,7 @@ node{
     
 }
     }
-    stage('deploy')
+    stage('ansible_deploy')
     {
     
        ansiblePlaybook become: true, credentialsId: 'ansibleid', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml' 
