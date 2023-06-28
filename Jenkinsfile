@@ -1,7 +1,7 @@
 node{
     stage('git checjout')
     {
-        git branch: 'master', url: ''
+        git branch: 'master', url: 'https://github.com/Arshiyaz/banking.git'
     }
 
     stage('build'){
@@ -10,22 +10,22 @@ node{
     }
     stage('dockerimagebuild')
     {
-    sh 'sudo docker build -t kondetimounika/financemee:1.0 .'
+    sh 'sudo docker build -t arshiya13/banking .'
    
     }
     stage('docker image push to registry')
     {
     
-    withCredentials([string(credentialsId: 'docker-password', variable: 'docker')]) {
-        sh 'docker login -u kondetimounika -p ${docker}'
-        sh 'docker push kondetimounika/financemee:1.0'
+    withCredentials([string(credentialsId: 'dockerid', variable: 'dockervar')]) {
+        sh 'docker login -u kondetimounika -p ${dockervar}'
+        sh 'docker push arshiya13/banking'
     
 }
     }
     stage('deploy')
     {
     
-       ansiblePlaybook become: true, credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'myAnsible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml' 
+       ansiblePlaybook become: true, credentialsId: 'ansibleid', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml' 
     }
 }
 
