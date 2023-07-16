@@ -17,11 +17,11 @@ pipeline {
          
 
                 script {
-                    def customImage = docker.build("prasannagundavarapu/healthcareimage")
+                    def customImage = docker.build("prasannagundavarapu/banking")
                     
                     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
                       sh 'docker login -u prasannagundavarapu -p maruthi@12345'
-                      sh 'docker push prasannagundavarapu/healthcareimage'
+                      sh 'docker push prasannagundavarapu/banking'
              }
                     
                 }
