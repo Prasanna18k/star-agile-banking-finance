@@ -1,7 +1,7 @@
 node{
     stage('code_checkout')
     {
-        git branch: 'master', url: ''
+        git branch: 'master', url: 'https://github.com/Prasanna18k/star-agile-banking-finance.git'
     }
     stage('code_compile'){
     sh 'mvn compile'
