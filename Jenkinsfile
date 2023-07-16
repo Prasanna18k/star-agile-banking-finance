@@ -1,7 +1,7 @@
 node{
     stage('code_checkout')
     {
-        git branch: 'master', url: 'https://github.com/Arshiyaz/banking.git'
+        git branch: 'master', url: ''
     }
     stage('code_compile'){
     sh 'mvn compile'
@@ -12,7 +12,7 @@ node{
     }
     stage('dockerimagebuild')
     {
-    sh 'sudo docker build -t arshiya13/banking .'
+    sh 'sudo docker build -t prasannagundavarapu/banking .'
    
     }
     stage('docker image push')
